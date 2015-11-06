@@ -1,0 +1,69 @@
+<img class="loading-spinner" [ng-class]="{loaded: loaded}" src="assets/images/loading-spinner.gif" />
+<div class="slider" [ng-class]="{loaded: loaded}">
+  <div class="slide next {{overlays[overlayNextIndex].color}}" [ng-class]="{transitioning: trans}">
+    <div class="fit">
+      <div class="overlay">
+        <object
+          *ng-for="#overlay of overlays; #i=index"
+          [ng-class]="{active : i === overlayNextIndex}"
+          data="{{overlays[i].svg}}"
+          type="image/svg+xml"></object>
+      </div>
+      <div class="image">
+        <img src="{{nextImage}}" />
+      </div>
+    </div>
+  </div>
+  <div class="slide current {{overlays[overlayIndex].color}}">
+    <div class="fit">
+      <div class="image">
+        <img src="{{currentImage}}" />
+      </div>
+      <div class="overlay">
+        <object
+          *ng-for="#overlay of overlays; #i=index"
+          [ng-class]="{active : i === overlayIndex}"
+          data="{{overlays[i].svg}}"
+          type="image/svg+xml"></object>
+      </div>
+    </div>
+  </div>
+</div>
+<div (mouseenter)="showButton(dashButton)"
+     (mouseleave)="hideButton(dashButton)"
+     id="reveal">
+  <button class="dash" #dash-button (click)="toggleDash(dashboard)">Dashboard</button>
+  <div id="dashboard" #dashboard>
+    <div id="tag">
+      <input type="text" value="{{Insta.tag}}" #tag />
+      <button (click)="newTag(tag.value)">Reload</button>
+    </div>
+    <div id="new">
+      <h6>New Queue</h6>
+      <ul>
+        <li *ng-for="#item of newQueue">
+          <img src="{{item}}" />
+        </li>
+      </ul>
+    </div>
+    <div id="queue">
+      <h6>Slideshow Queue</h6>
+      <ul>
+        <li *ng-for="#item of queue; #i=index"
+          [ng-class]="{active : i === queueIndex}">
+            <img src="{{item}}" />
+        </li>
+      </ul>
+    </div>
+    <div id="insta">
+      <h6>Instagram Data</h6>
+      <ul>
+        <li
+          *ng-for="#item of Insta.data; #i=index"
+          [ng-class]="{active : i === queueIndex}">
+            <img src="{{item?.images?.high_resolution?.url}}" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
