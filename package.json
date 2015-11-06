@@ -5,8 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "angular2": "2.0.0-alpha.44",
-    "systemjs": "0.19.2",
-    "es6-shim": "0.33.10"
+    "systemjs": "0.19.2"
   },
   "devDependencies": {
     "gulp": "^3.9.0",

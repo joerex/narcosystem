@@ -7,6 +7,13 @@
     <!-- endinject -->
     <meta name="viewport" content="width=device-width" />
     <script>
+      if ( typeof String.prototype.startsWith != 'function' ) {
+        String.prototype.startsWith = function( str ) {
+          return this.substring( 0, str.length ) === str;
+        }
+      };
+    </script>
+    <script>
       System.config({
         packages: {'app': {defaultExtension: 'js'}}
       });

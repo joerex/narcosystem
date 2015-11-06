@@ -12,7 +12,7 @@ export class Insta {
   token : string;
   interval : number;
   clientID : string = 'ca1289b16c0d4310a6738c84ed62ed06';
-  redirectURI : string = 'http://localhost:8888';
+  redirectURI : string = 'http://' + window.location.host;
   authURL : string = 'https://instagram.com/oauth/authorize/?client_id='
                               + this.clientID + '&redirect_uri=' + this.redirectURI
                               + '&response_type=token';
