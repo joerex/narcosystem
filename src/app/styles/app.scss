@@ -165,7 +165,15 @@ my-app, overslide {
       color:#efefef;
     }
 
+    span {
+      display:block;
+      margin-top:5px;
+      font-size:.4em;
+      color:#efefef;
+    }
+
     ul {
+      display:none;
       width: 100%;
       min-height:27px;
       margin:10px 0;
@@ -208,5 +216,9 @@ my-app, overslide {
 
   #tag {
     margin:20px 0;
+  }
+
+  #insta {
+    display:none;
   }
 }

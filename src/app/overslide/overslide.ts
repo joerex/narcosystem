@@ -32,7 +32,8 @@ export class Overslide {
   loaded : Boolean;
   trans : Boolean;
   onNew : Boolean;
-  interval : number;
+  updateInterval : number;
+  rotateInterval : number;
 
   constructor(
     public Insta : Insta
@@ -73,7 +74,8 @@ export class Overslide {
     this.loaded = false;
     this.trans = false;
     this.onNew = false;
-    clearInterval(this.interval);
+    clearInterval(this.updateInterval);
+    clearInterval(this.rotateInterval);
     this.setInterval();
   }
 
@@ -85,10 +87,12 @@ export class Overslide {
 
   setInterval() {
     let __this = this;
-    this.interval = setInterval(function() {
+    this.updateInterval = setInterval(function() {
       __this.update();
-      __this.nextSlide();
     }, 5000);
+    this.rotateInterval = setInterval(function() {
+      __this.nextSlide();
+    }, 1000);
   }
 
   getNewInsta() {
@@ -134,7 +138,7 @@ export class Overslide {
       this.overlayIndex = this.overlayNextIndex;
       this.overlayNextIndex = this.overlayNextIndex+1 < this.overlays.length ? this.overlayNextIndex+1 : 0;
       this.trans = false;
-    }, 1200);
+    }, 10);
   }
 
   showButton(button) {

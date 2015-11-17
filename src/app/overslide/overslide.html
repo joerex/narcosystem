@@ -40,6 +40,7 @@
     </div>
     <div id="new">
       <h6>New Queue</h6>
+      <span>{{newQueue.length}}</span>
       <ul>
         <li *ng-for="#item of newQueue">
           <img src="{{item}}" />
@@ -48,6 +49,7 @@
     </div>
     <div id="queue">
       <h6>Slideshow Queue</h6>
+      <span>{{queue.length}}</span>
       <ul>
         <li *ng-for="#item of queue; #i=index"
           [ng-class]="{active : i === queueIndex}">

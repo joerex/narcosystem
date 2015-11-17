@@ -31,7 +31,7 @@ export class Insta {
   constructor(
     public jsonp : Jsonp
   ) {
-    this.tag = 'guns';
+    this.tag = 'selfie';
     this.data = [];
     this.count = 0;
     this.main();
