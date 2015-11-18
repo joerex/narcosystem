@@ -38,11 +38,15 @@ export class Overslide {
   constructor(
     public Insta : Insta
   ) {
+    /*
     this.overlays = [
       {svg: 'assets/overlays/blue-square.svg', color: 'blue'},
       {svg: 'assets/overlays/red-circle.svg', color: 'red'},
       {svg: 'assets/overlays/yellow-triangle.svg', color: 'yellow'}
     ]
+    */
+    this.overlays = [];
+    this.addOverlays();
     this.queue = [];
     this.newQueue = [];
     this.queueIndex = 0;
@@ -56,6 +60,25 @@ export class Overslide {
     this.onNew = false;
     this.main();
     //Renderer.setElementStyle(element, 'opacity', '.1');
+  }
+
+  addOverlays() {
+    var colorNum = 0;
+    for (let o = 1; o <= 30; o++ ) {
+      var color = '';
+      switch (colorNum) {
+        case 0: color = 'red'; break;
+        case 1: color = 'yellow'; break;
+        case 2: color = 'blue'; break;
+      }
+      let overlay = {
+        svg: 'assets/overlays/NARCO_Overlays_AlteringOrder_' + o + '.svg',
+        color: color
+      }
+      this.overlays.push(overlay);
+      console.log(overlay);
+      colorNum = colorNum === 2 ? 0 : colorNum+1;
+    }
   }
 
   main() {

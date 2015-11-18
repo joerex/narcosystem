@@ -28,7 +28,7 @@ export class Insta {
     return url;
   }
 
-  constructor(
+  constructor( 
     public jsonp : Jsonp
   ) {
     this.tag = 'selfie';
