@@ -28,7 +28,7 @@ export class Insta {
     return url;
   }
 
-  constructor( 
+  constructor(
     public jsonp : Jsonp
   ) {
     this.tag = 'selfie';
@@ -94,7 +94,7 @@ export class Insta {
         if (res.min != undefined) this.min = res.min;
         //this.max = res.pagination.next_max_tag_id;
         //console.log(this.data);
-        //console.log('Returned ' + res.data.length + ' new items.');
+        console.log('Returned ' + res.data.length + ' new items.');
       },
       err => console.log('Error: ', err),
       () => console.log('') //Fetch complete.')

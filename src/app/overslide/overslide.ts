@@ -29,6 +29,7 @@ export class Overslide {
   nextImage : string;
   nextOverlay : Overlay;
   overlays : Overlay[];
+  totalReceived : number;
   loaded : Boolean;
   trans : Boolean;
   onNew : Boolean;
@@ -38,15 +39,11 @@ export class Overslide {
   constructor(
     public Insta : Insta
   ) {
-    /*
     this.overlays = [
-      {svg: 'assets/overlays/blue-square.svg', color: 'blue'},
-      {svg: 'assets/overlays/red-circle.svg', color: 'red'},
-      {svg: 'assets/overlays/yellow-triangle.svg', color: 'yellow'}
-    ]
-    */
-    this.overlays = [];
-    this.addOverlays();
+      {svg: 'assets/overlays/NarcoSystem_Overlays_FINAL_RED_1.svg', color: 'red'},
+      {svg: 'assets/overlays/NarcoSystem_Overlays_FINAL_YELLOW_2.svg', color: 'yellow'},
+      {svg: 'assets/overlays/NarcoSystem_Overlays_FINAL_BLUE_3.svg', color: 'blue'}
+    ];
     this.queue = [];
     this.newQueue = [];
     this.queueIndex = 0;
@@ -55,13 +52,14 @@ export class Overslide {
     this.currentImage = '';
     this.overlayIndex = 0;
     this.overlayNextIndex = 0;
+    this.totalReceived = 0;
     this.loaded = false;
     this.trans = false;
     this.onNew = false;
     this.main();
-    //Renderer.setElementStyle(element, 'opacity', '.1');
   }
 
+  // unused
   addOverlays() {
     var colorNum = 0;
     for (let o = 1; o <= 30; o++ ) {
@@ -97,6 +95,7 @@ export class Overslide {
     this.loaded = false;
     this.trans = false;
     this.onNew = false;
+    this.totalReceived = 0;
     clearInterval(this.updateInterval);
     clearInterval(this.rotateInterval);
     this.setInterval();
@@ -115,25 +114,40 @@ export class Overslide {
     }, 5000);
     this.rotateInterval = setInterval(function() {
       __this.nextSlide();
-    }, 1000);
+    }, 100);
   }
 
   getNewInsta() {
-    return this.Insta.data.slice(this.queue.length, this.Insta.data.length)
+    return this.Insta.data.slice(this.totalReceived, this.Insta.data.length)
       .map((item) => item.images.high_resolution.url);
   }
 
   update() {
-    console.log('Updating');
     if (this.queue.length < this.Insta.data.length) {
+      console.log('Updating');
       let newData = this.getNewInsta();
+      this.totalReceived += newData.length;
       if (!this.loaded) {
         this.queue = this.queue.concat(newData);
         this.loaded = true;
         return;
       }
+      console.log('Got ' + newData.length + ' from Insta');
+      console.log('Have ' + this.totalReceived + ' total');
       this.newQueue = this.newQueue.concat(newData);
       this.queue = this.queue.concat(newData);
+      if (this.queue.length >= 1000) {
+        // cut queue in half
+        this.queue = this.queue.splice(500, this.queue.length);
+        if (this.queueIndex <= 500) {
+          // set index to 0
+          this.queueIndex = 0;
+        }
+        else {
+          // set index to current - half
+          this.queueIndex = this.queueIndex - 500;
+        }
+      }
     }
   }
 
@@ -142,15 +156,18 @@ export class Overslide {
       this.newQueue.shift();
       this.onNew = false;
     }
-    if (this.newQueue.length > 0) {
-      console.log('From new: 1 of ' + this.newQueue.length);
+    if (this.newQueue.length > 40) {
+      //console.log('From new: 1 of ' + this.newQueue.length);
       this.onNew = true;
       this.nextImage = this.newQueue[0];
     }
-    else {
+    else if (this.queue.length > 40) {
       this.queueIndex = this.queueIndex+1 < this.queue.length ? this.queueIndex+1 : 0;
       this.nextImage = this.queue[this.queueIndex];
-      console.log('From queue: ' + this.queueIndex + ' of ' + this.queue.length);
+      //console.log('From queue: ' + this.queueIndex + ' of ' + this.queue.length);
+    }
+    else {
+      return;
     }
     this.overlayNextIndex
     this.trans = true;

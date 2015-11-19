@@ -49,7 +49,7 @@
     </div>
     <div id="queue">
       <h6>Slideshow Queue</h6>
-      <span>{{queue.length}}</span>
+      <span>on {{queueIndex}} of {{queue.length}}</span>
       <ul>
         <li *ng-for="#item of queue; #i=index"
           [ng-class]="{active : i === queueIndex}">
@@ -59,13 +59,7 @@
     </div>
     <div id="insta">
       <h6>Instagram Data</h6>
-      <ul>
-        <li
-          *ng-for="#item of Insta.data; #i=index"
-          [ng-class]="{active : i === queueIndex}">
-            <img src="{{item?.images?.high_resolution?.url}}" />
-        </li>
-      </ul>
+      <span>{{Insta.data.length}}</span>
     </div>
   </div>
 </div>
