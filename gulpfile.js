@@ -81,3 +81,7 @@ gulp.task('default', ['styles', 'js', 'html', 'assets', 'libs', 'watch', 'serve'
 gulp.task('all', function() {
   runSequence('styles', 'js', 'html', 'assets', 'libs', 'index', 'watch', 'serve');
 });
+
+gulp.task('build', function() {
+  runSequence('styles', 'js', 'html', 'assets', 'libs', 'index');
+});

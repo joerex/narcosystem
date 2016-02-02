@@ -65,7 +65,6 @@ export class Insta {
   }
 
   newTag(tag) {
-    console.log('Insta New Tag');
     this.tag = tag;
     this.reset();
   }
@@ -97,7 +96,7 @@ export class Insta {
         console.log('Returned ' + res.data.length + ' new items.');
       },
       err => console.log('Error: ', err),
-      () => console.log('') //Fetch complete.')
+      () => console.log('')
     );
   }
 }
