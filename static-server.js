@@ -1,6 +1,6 @@
 var static = require('node-static');
 
-var fileServer = new static.Server('./dist');
+var fileServer = new static.Server('./dist', {gzip: true});
 console.log('Starting static server');
 
 require('http').createServer(function (request, response) {
