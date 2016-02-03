@@ -11,6 +11,8 @@ html {
   }
 }
 
+[hidden] { display: none !important; }
+
 .loading-spinner {
   position:absolute;
   display:block;
@@ -20,8 +22,60 @@ html {
   height:24px;
   margin:-12px 0 0 -12px;
 
-  &.loaded {
+  &.preloaded {
     display:none;
+  }
+}
+
+#loading-queue {
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  display:none;
+  background:red;
+
+  h4 {
+    position:absolute;
+    top:50%;
+    left:0;
+    width:100%;
+    z-index:1;
+    margin-top:-20px;
+    text-align: center;
+    font-size:18px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    padding:20px;
+    background:white;
+    color:#666;
+  }
+
+  ul {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    margin:0;
+    padding:0;
+
+    li {
+      list-style: none;
+      width:20%;
+      float:left;
+
+      img {
+        display:block;
+        width:100%;
+        height:auto;
+        opacity:.4;
+      }
+    }
+  }
+
+  &.preloaded {
+    display:block;
   }
 }
 

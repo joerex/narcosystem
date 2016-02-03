@@ -1,4 +1,12 @@
-<img class="loading-spinner" [ng-class]="{loaded: loaded}" src="assets/images/loading-spinner.gif" />
+<img class="loading-spinner" [hidden]="preloaded" src="assets/images/loading-spinner.gif" />
+<div id="loading-queue" [ng-class]="{preloaded: preloaded}" [hidden]="loaded">
+  <h4>Buffering Queue</h4>
+  <ul>
+    <li *ng-for="#item of newQueue">
+      <img src="{{item}}" />
+    </li>
+  </ul>
+</div>
 <div class="slider" [ng-class]="{loaded: loaded}">
   <div class="slide next {{overlays[overlayNextIndex].color}}" [ng-class]="{transitioning: trans}">
     <div class="fit">

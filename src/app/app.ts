@@ -5,7 +5,7 @@ import {Overslide} from './overslide/overslide';
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'app/app.html',
+    template: '<overslide></overslide>',
     directives: [CORE_DIRECTIVES, Overslide]
 })
 

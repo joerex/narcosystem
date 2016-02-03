@@ -30,6 +30,7 @@ export class Overslide {
   nextOverlay : Overlay;
   overlays : Overlay[];
   totalReceived : number;
+  preloaded : Boolean;
   loaded : Boolean;
   trans : Boolean;
   onNew : Boolean;
@@ -53,6 +54,7 @@ export class Overslide {
     this.overlayIndex = 0;
     this.overlayNextIndex = 0;
     this.totalReceived = 0;
+    this.preloaded = false;
     this.loaded = false;
     this.trans = false;
     this.onNew = false;
@@ -80,6 +82,7 @@ export class Overslide {
   }
 
   main() {
+    this.update();
     this.setInterval();
   }
 
@@ -92,12 +95,14 @@ export class Overslide {
     this.currentImage = '';
     this.overlayIndex = 0;
     this.overlayNextIndex = 0;
+    this.preloaded = false;
     this.loaded = false;
     this.trans = false;
     this.onNew = false;
     this.totalReceived = 0;
     clearInterval(this.updateInterval);
     clearInterval(this.rotateInterval);
+    this.update();
     this.setInterval();
   }
 
@@ -111,7 +116,7 @@ export class Overslide {
     let __this = this;
     this.updateInterval = setInterval(function() {
       __this.update();
-    }, 5000);
+    }, 1000);
     this.rotateInterval = setInterval(function() {
       __this.nextSlide();
     }, 100);
@@ -127,15 +132,18 @@ export class Overslide {
       console.log('Updating');
       let newData = this.getNewInsta();
       this.totalReceived += newData.length;
-      if (!this.loaded) {
+      if (!this.preloaded) {
         this.queue = this.queue.concat(newData);
-        this.loaded = true;
-        return;
+        this.preloaded = true;
+        //return;
       }
       console.log('Got ' + newData.length + ' from Insta');
       console.log('Have ' + this.totalReceived + ' total');
       this.newQueue = this.newQueue.concat(newData);
       this.queue = this.queue.concat(newData);
+      if (this.totalReceived >= 40) {
+        this.loaded = true;
+      }
       if (this.queue.length >= 1000) {
         // cut queue in half
         this.queue = this.queue.splice(500, this.queue.length);
@@ -157,14 +165,12 @@ export class Overslide {
       this.onNew = false;
     }
     if (this.newQueue.length > 40) {
-      //console.log('From new: 1 of ' + this.newQueue.length);
       this.onNew = true;
       this.nextImage = this.newQueue[0];
     }
     else if (this.queue.length > 40) {
       this.queueIndex = this.queueIndex+1 < this.queue.length ? this.queueIndex+1 : 0;
       this.nextImage = this.queue[this.queueIndex];
-      //console.log('From queue: ' + this.queueIndex + ' of ' + this.queue.length);
     }
     else {
       return;
